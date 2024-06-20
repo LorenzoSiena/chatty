@@ -1,4 +1,5 @@
 # Chatty the vocal [Cheshire Cat](https://github.com/cheshire-cat-ai/core) API Client in python
+![chatty-cat-image](https://github.com/LorenzoSiena/chatty/assets/74120782/40008f86-b713-4beb-b924-dd35be8e99cd)
 
 This project is a Python client for connecting to a WebSocket API using the `cheshire_cat_api` module. The client is configured to send and receive messages, including audio files, via WebSocket.
 
