@@ -2,7 +2,7 @@
 
 This project is a Python client for connecting to a WebSocket API using the `cheshire_cat_api` module. The client is configured to send and receive messages, including audio files, via WebSocket.
 
-Best use with [Local Whisper Cat](https://github.com/LorenzoSiena/local_whisper_cat) and [Piper Cat](https://github.com/pazoff/Piper-Cat)
+Best use with [Local Whisper Cat](https://github.com/LorenzoSiena/local_whisper_cat) and [Piper Cat](https://github.com/pazoff/Piper-Cat) for going full vocal and local.
 ## Requirements
 
 Ensure you have the following modules installed:
