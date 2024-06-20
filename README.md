@@ -35,8 +35,82 @@ config = ccat.Config(
     secure_connection=False,
 )
 ```
+### Recording and Sending Audio Messages :microphone:
 
-## Main Functions
+The client can record audio messages and send them to the server:
+
+```python
+while True:
+    message = input("Write 'stop' to exit: \nPress Enter for recording")
+    if message == "stop":
+        break
+    else:
+        my_audio = record_audio()
+        extra_fields["audio_key"] = read_file_as_base64(my_audio)
+        cat_client.send(message, **extra_fields)
+```
+
+## Listening the response :sound:
+If there is a message with an audio inside the playaudio function will play the response!
+In the following response format it will look for the audio file 
+
+```python
+{
+    "type" :
+        "chat",
+    "content" :
+        "<audio controls autoplay><source 
+        src='/admin/assets/voice/voice_20240617_140731.wav' 
+        type='audio/mp3'
+        >
+        Your browser does not support the audio element.</audio>"
+    }
+```
+
+with the function on_message() on a separate thread 
+
+```python
+ if message["type"] == "chat" and "type='audio/mp3" in message["content"]:
+        html_string = message["content"]
+        url_audio_to_play = get_audio_file_path(
+            html_string
+        ) 
+        print("The file you are looking for is at :--->" + url_audio_to_play)
+        thread = threading.Thread(target=playsound, args=(url_audio_to_play,))
+        thread.start()
+```
+## Running the Client
+
+To run the client, ensure the WebSocket server is up and running, then start the client:
+
+```python
+python chatty.py
+```
+
+it will wait for your "enter" and than rec 10 seconds of audio,replying you what you said , the text and audio response
+
+```python
+# Connect to the WebSocket API
+cat_client.connect_ws()
+
+while not cat_client.is_ws_connected:
+    time.sleep(1)
+
+# Run the main loop
+while True:
+    message = input("Write 'stop' to exit: \nPress Enter for recording")
+    if message == "stop":
+        break
+    else:
+        my_audio = record_audio()
+        extra_fields["audio_key"] = read_file_as_base64(my_audio)
+        cat_client.send(message, **extra_fields)
+
+# Close the connection
+cat_client.close()
+```
+
+## Main Functions from cheshire_cat_api module
 
 ### Connection
 
@@ -61,46 +135,6 @@ The client includes functions to read files and encode them in base64:
 ### Extracting Audio File Paths
 
 The `get_audio_file_path` method extracts the audio file path from an HTML string and returns the complete URL to reach the audio file.
-
-### Recording and Sending Audio Messages
-
-The client can record audio messages and send them to the server:
-
-```python
-while True:
-    message = input("Write 'stop' to exit: \nPress Enter for recording")
-    if message == "stop":
-        break
-    else:
-        my_audio = record_audio()
-        extra_fields["audio_key"] = read_file_as_base64(my_audio)
-        cat_client.send(message, **extra_fields)
-```
-
-## Running the Client
-
-To run the client, ensure the WebSocket server is up and running, then start the client:
-
-```python
-# Connect to the WebSocket API
-cat_client.connect_ws()
-
-while not cat_client.is_ws_connected:
-    time.sleep(1)
-
-# Run the main loop
-while True:
-    message = input("Write 'stop' to exit: \nPress Enter for recording")
-    if message == "stop":
-        break
-    else:
-        my_audio = record_audio()
-        extra_fields["audio_key"] = read_file_as_base64(my_audio)
-        cat_client.send(message, **extra_fields)
-
-# Close the connection
-cat_client.close()
-```
 
 ## Contributions
 
