@@ -1,4 +1,4 @@
-# Chatty the vocal Cheshire Cat API Client in python
+# Chatty the vocal [Cheshire Cat](https://github.com/cheshire-cat-ai/core) API Client in python
 
 This project is a Python client for connecting to a WebSocket API using the `cheshire_cat_api` module. The client is configured to send and receive messages, including audio files, via WebSocket.
 
@@ -14,13 +14,12 @@ Ensure you have the following modules installed:
 - `base64`
 - `beautifulsoup4`
 - `playsound`
-- `recorder`
 - `threading`
 
 You can install any missing dependencies using `pip`:
 
 ```sh
-pip install datetime json time pprint base64 beautifulsoup4 playsound recorder threading
+pip install datetime json time pprint base64 beautifulsoup4 playsound threading
 ```
 
 ## Configuration
